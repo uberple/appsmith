@@ -187,7 +187,6 @@ class TableWidgetV2 extends BaseWidget<TableWidgetProps, WidgetState> {
         }
       });
     }
-
     if (totalColumnWidth < componentWidth) {
       const flexibleColumns = columns.filter(
         (c) => c.columnProperties?.isCellFlexible || false,
