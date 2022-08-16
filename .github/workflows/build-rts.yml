@@ -65,7 +65,7 @@ jobs:
         if: success() && github.ref == 'refs/heads/release'
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_ORGANIZATION }}/appsmith-rts:${{steps.vars.outputs.tag}} .
-          echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+          echo ${{ secrets.PACKAGES_WRITE_PASSWORD }} | docker login -u ${{ secrets.PACKAGES_WRITE_USERNAME }} --password-stdin
           docker push ${{ secrets.DOCKER_HUB_ORGANIZATION }}/appsmith-rts:${{steps.vars.outputs.tag}}
 
       # Build release-frozen Docker image and push to Docker Hub
@@ -73,7 +73,7 @@ jobs:
         if: success() && github.ref == 'refs/heads/release-frozen'
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_ORGANIZATION }}/appsmith-rts:${{steps.vars.outputs.tag}} .
-          echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+          echo ${{ secrets.PACKAGES_WRITE_PASSWORD }} | docker login -u ${{ secrets.PACKAGES_WRITE_USERNAME }} --password-stdin
           docker push ${{ secrets.DOCKER_HUB_ORGANIZATION }}/appsmith-rts:${{steps.vars.outputs.tag}}
 
       # Build master Docker image and push to Docker Hub
@@ -82,7 +82,7 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_ORGANIZATION }}/appsmith-rts:${GITHUB_SHA} .
           docker build -t ${{ secrets.DOCKER_HUB_ORGANIZATION }}/appsmith-rts:nightly .
-          echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+          echo ${{ secrets.PACKAGES_WRITE_PASSWORD }} | docker login -u ${{ secrets.PACKAGES_WRITE_USERNAME }} --password-stdin
           docker push ${{ secrets.DOCKER_HUB_ORGANIZATION }}/appsmith-rts:${GITHUB_SHA}
           docker push ${{ secrets.DOCKER_HUB_ORGANIZATION }}/appsmith-rts:nightly
 
