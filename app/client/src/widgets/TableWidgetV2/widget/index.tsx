@@ -187,7 +187,6 @@ class TableWidgetV2 extends BaseWidget<TableWidgetProps, WidgetState> {
         }
       });
     }
-
     if (totalColumnWidth < componentWidth) {
       const flexibleColumns = columns.filter(
         (c) => c.columnProperties?.isCellFlexible || false,
@@ -1465,6 +1464,7 @@ class TableWidgetV2 extends BaseWidget<TableWidgetProps, WidgetState> {
               this.props.accentColor ||
               Colors.GREEN
             }
+            buttonIconColor={cellProperties.buttonIconColor || "#FFFFFF"}
             buttonVariant={cellProperties.buttonVariant || "PRIMARY"}
             cellBackground={cellProperties.cellBackground}
             columnActions={[
@@ -1474,6 +1474,7 @@ class TableWidgetV2 extends BaseWidget<TableWidgetProps, WidgetState> {
               },
             ]}
             compactMode={compactMode}
+            customIconName={cellProperties.customIconName || ""}
             disabled={!!cellProperties.isDisabled}
             fontStyle={cellProperties.fontStyle}
             horizontalAlignment={cellProperties.horizontalAlignment}
