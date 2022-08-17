@@ -50,6 +50,47 @@ export default {
       },
     },
     {
+      propertyName: "buttonIconColor",
+      label: "Button Icon Color",
+      controlType: "PRIMARY_COLUMNS_COLOR_PICKER",
+      helpText: "Changes the color of the button",
+      isJSConvertible: true,
+      customJSControl: "TABLE_COMPUTE_VALUE",
+      updateHook: updateIconAlignment,
+      hidden: (props: TableWidgetProps, propertyPath: string) => {
+        return hideByColumnType(props, propertyPath, [
+          ColumnTypes.BUTTON,
+          ColumnTypes.ICON_BUTTON,
+        ]);
+      },
+      dependencies: ["primaryColumns", "columnOrder"],
+      isBindProperty: true,
+      validation: {
+        type: ValidationTypes.TABLE_PROPERTY,
+        params: {
+          type: ValidationTypes.TEXT,
+          params: {
+            regex: /^(?![<|{{]).+/,
+          },
+        },
+      },
+      isTriggerProperty: false,
+    },
+    {
+      propertyName: "customIconName",
+      label: "Custom Icon Name",
+      controlType: "TABLE_COMPUTE_VALUE",
+      customJSControl: "TABLE_COMPUTE_VALUE",
+      defaultValue: "",
+      updateHook: updateIconAlignment,
+      hidden: (props: TableWidgetProps, propertyPath: string) => {
+        return hideByColumnType(props, propertyPath, [ColumnTypes.ICON_BUTTON]);
+      },
+      dependencies: ["primaryColumns", "columnOrder"],
+      isBindProperty: true,
+      isTriggerProperty: false,
+    },
+    {
       propertyName: "menuButtoniconName",
       label: "Icon",
       helpText: "Sets the icon to be used for the menu button",

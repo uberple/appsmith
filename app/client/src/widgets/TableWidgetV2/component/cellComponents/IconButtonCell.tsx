@@ -6,11 +6,14 @@ import { ButtonVariant } from "components/constants";
 import { BaseCellComponentProps } from "../Constants";
 import { CellWrapper, IconButtonWrapper } from "../TableStyledWrappers";
 import { StyledButton } from "widgets/IconButtonWidget/component";
+import { CustomIconMapper } from "widgets/IconButtonWidget/component/CustomIcons/CustomIconMapper";
 
 interface RenderIconButtonProps extends BaseCellComponentProps {
   isSelected: boolean;
   columnActions?: ColumnAction[];
   iconName?: IconName;
+  buttonIconColor?: string;
+  customIconName?: string;
   buttonVariant: ButtonVariant;
   buttonColor: string;
   borderRadius: string;
@@ -25,6 +28,8 @@ function IconButton(props: {
   isSelected: boolean;
   action: ColumnAction;
   buttonColor: string;
+  buttonIconColor?: string;
+  customIconName?: string;
   buttonVariant: ButtonVariant;
   borderRadius: string;
   boxShadow: string;
@@ -54,9 +59,15 @@ function IconButton(props: {
         borderRadius={props.borderRadius}
         boxShadow={props.boxShadow}
         buttonColor={props.buttonColor}
+        buttonTextColor={props.buttonIconColor}
         buttonVariant={props.buttonVariant}
+        customIconName={props.customIconName}
         disabled={props.disabled}
-        icon={props.iconName}
+        icon={
+          props.customIconName && props.customIconName != ""
+            ? CustomIconMapper.getCustomIcon(props.customIconName || "")
+            : props.iconName
+        }
         loading={loading}
         onClick={handleClick}
       />
@@ -74,6 +85,7 @@ export function IconButtonCell(props: RenderIconButtonProps) {
     cellBackground,
     columnActions,
     compactMode,
+    customIconName,
     disabled,
     fontStyle,
     horizontalAlignment,
@@ -122,6 +134,7 @@ export function IconButtonCell(props: RenderIconButtonProps) {
             boxShadow={boxShadow}
             buttonColor={buttonColor}
             buttonVariant={buttonVariant}
+            customIconName={customIconName}
             disabled={disabled}
             iconName={iconName}
             isSelected={isSelected}

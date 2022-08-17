@@ -25,6 +25,7 @@ import {
 import { createGlobalStyle } from "constants/DefaultTheme";
 import Interweave from "interweave";
 import { Popover2 } from "@blueprintjs/popover2";
+import { CustomIconMapper } from "./CustomIcons/CustomIconMapper";
 
 const ToolTipWrapper = styled.div`
   height: 100%;
@@ -104,6 +105,7 @@ export interface ButtonStyleProps {
   borderRadius?: ButtonBorderRadius;
   boxShadow?: string;
   buttonColor: string;
+  buttonTextColor?: string;
   buttonVariant?: ButtonVariant;
   dimension?: number;
   hasOnClickAction?: boolean;
@@ -127,7 +129,13 @@ export const StyledButton = styled((props) => (
   min-height: 32px !important;
   min-width: 32px !important;
 
-  ${({ buttonColor, buttonVariant, hasOnClickAction, theme }) => `
+  ${({
+    buttonColor,
+    buttonTextColor,
+    buttonVariant,
+    hasOnClickAction,
+    theme,
+  }) => `
     &:enabled {
       background: ${
         getCustomBackgroundColor(buttonVariant, buttonColor) !== "none"
@@ -185,7 +193,9 @@ export const StyledButton = styled((props) => (
       align-items: center;
 
       color: ${
-        buttonVariant === ButtonVariantTypes.PRIMARY
+        buttonTextColor && buttonTextColor !== ""
+          ? buttonTextColor
+          : buttonVariant === ButtonVariantTypes.PRIMARY
           ? getComplementaryGrayscaleColor(buttonColor)
           : getCustomBackgroundColor(
               ButtonVariantTypes.PRIMARY,
@@ -215,6 +225,8 @@ export interface IconButtonComponentProps extends ComponentProps {
   buttonVariant: ButtonVariant;
   borderRadius: string;
   boxShadow: string;
+  buttonTextColor?: string;
+  customIconName?: string;
   isDisabled: boolean;
   isVisible: boolean;
   hasOnClickAction: boolean;
@@ -270,10 +282,15 @@ function IconButtonComponent(props: IconButtonComponentProps) {
         boxShadow={boxShadow}
         buttonColor={buttonColor}
         buttonVariant={_.trim(buttonVariant)}
+        buttontextcolor={props.buttonTextColor}
         dimension={dimension}
         disabled={isDisabled}
         hasOnClickAction={hasOnClickAction}
-        icon={props.iconName}
+        icon={
+          props.customIconName && props.customIconName != ""
+            ? CustomIconMapper.getCustomIcon(props.customIconName || "")
+            : props.iconName
+        }
         large
       />
     </IconButtonContainer>

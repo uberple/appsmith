@@ -118,6 +118,8 @@ export interface CellLayoutProperties {
   menuColor?: string;
   iconName?: IconName;
   menuButtoniconName?: IconName;
+  buttonIconColor?: string;
+  customIconName?: string;
   iconAlign?: Alignment;
   onItemClicked?: (onClick: string | undefined) => void;
   isCellEditable: boolean;
@@ -223,6 +225,8 @@ export interface ColumnProperties {
   boxShadowColor?: string;
   iconName?: IconName;
   menuButtoniconName?: IconName;
+  buttonIconColor?: string;
+  customIconName?: string;
   iconAlign?: Alignment;
   onItemClicked?: (onClick: string | undefined) => void;
   iconButtonStyle?: ButtonStyleType;
